@@ -9,9 +9,19 @@
     </head>
     <body>
     <div id="app" class="container mx-auto p-6">
+
+        <router-link
+            tag="a"
+            class="nav-link"
+            to="/"
+            exact
+        >Home</router-link>
+        <router-link
+            tag="a"
+            class="nav-link"
+            to="/products"
+        >Products</router-link>
         <router-view></router-view>
-        <router-link to="/">Home</router-link>
-        <router-link to="/products">Products</router-link>
     </div>
 
         <script src="{{asset('js/app.js')}}" ></script>

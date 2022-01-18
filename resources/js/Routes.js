@@ -3,7 +3,7 @@ import Products from "./Pages/Products";
 
 export default {
     mode:'history',
-
+    linkActiveClass: "nav-link-active",
     routes: [
         {
             path: '/',
