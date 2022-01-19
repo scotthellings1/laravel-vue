@@ -18,6 +18,7 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="name"
                    aria-describedby="emailHelp" placeholder="Product Name">
+            <span class="text-sm mt-1 text-red-400" v-if="errors.name">{{errors.name[0]}}</span>
         </div>
         <div class="form-group mb-6">
             <label for="description" class="form-label inline-block mb-2 text-gray-700">Description</label>
@@ -36,6 +37,7 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="description"
                    placeholder="Description">
+            <span class="text-sm mt-1 text-red-400" v-if="errors.description">{{errors.description[0]}}</span>
         </div>
         <div class="form-group mb-6">
             <label for="price" class="form-label inline-block mb-2 text-gray-700">price</label>
@@ -54,6 +56,7 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="price"
                    placeholder="103.99">
+            <span class="text-sm mt-1 text-red-400" v-if="errors.price ">{{errors.price [0]}}</span>
         </div>
 
         <button type="submit" class="
@@ -85,13 +88,15 @@ export default {
         return {
             name: '',
             description: '',
-            price: ''
+            price: '',
+            errors: {}
         }
     },
     methods: {
         onSubmit() {
             axios.post('http://localhost:8000/api/products', this.$data)
-            this.$emit('productAdded')
+            .then(response => this.$emit('onAddProduct'))
+            .catch(error => this.errors = error.response.data.errors)
         }
     }
 }
