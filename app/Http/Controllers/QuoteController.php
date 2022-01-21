@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Resources\ProductCollection;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
+use App\Http\Requests\StoreQuoteRequest;
+use App\Http\Resources\QuoteCollection;
+use App\Http\Resources\QuoteResource;
+use App\Models\Quote;
 use Illuminate\Http\Request;
 
-/**
- *
- */
-class ProductsController extends Controller
+class QuoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +17,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return new ProductCollection(Product::all());
+        return new QuoteCollection(Quote::all());
     }
 
     /**
@@ -29,12 +26,23 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreQuoteRequest $request)
     {
-        $product = Product::create($request->validated());
-        return new ProductResource($product);
+        $quote = Quote::create($request->validated());
+        return new QuoteResource($quote);
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Quote $quote)
+    {
+        return new QuoteResource($quote);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -43,9 +51,9 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $product->update($request->all());
+        //
     }
 
     /**
@@ -54,8 +62,8 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        $product->delete();
+        //
     }
 }

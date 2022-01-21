@@ -32,11 +32,11 @@
 
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
             <div v-show="!isEditing" class="text-sm leading-5 text-gray-500">
-                £{{ product.price }}
+                £{{ product.price.toFixed(2) }}
             </div>
             <div v-show="isEditing" class="text-sm leading-5 text-gray-500">
                 <input type="text"
-                       v-model="product.price"
+                       v-model.number="product.price"
                        name="price"
                        class="bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 
@@ -69,12 +69,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
             </svg>
-            <div class="flex space-x-2 items-center " v-show="isDeleting" @click="isDeleting = ! isDeleting">
+            <div class="flex space-x-2 items-center w-6 " v-show="isDeleting" >
                 <a @click="deleteProduct"
                    class=" cursor-pointer rounded-md px-2 py-2 text-white bg-red-400">DELETE</a>
-                <a @click="isDeleting = false"
+                <a @click="closeDelete"
                    class=" cursor-pointer rounded-md px-2 py-2 text-white bg-gray-400">CANCEL</a>
-
             </div>
 
 
@@ -91,6 +90,7 @@ export default {
             isDeleting: false
         }
     },
+
     methods: {
         updateProduct() {
             axios.put('http://localhost:8000/api/products/' + this.product.id,
@@ -116,6 +116,7 @@ export default {
                     this.closeDelete()
                     this.$emit('onProductDeleted')
                 })
+            .catch(error => console.log(error.data))
         }
     }
 

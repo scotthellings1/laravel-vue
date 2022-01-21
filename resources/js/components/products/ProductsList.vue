@@ -5,6 +5,8 @@
                 <add-product @onAddProduct="handleAddProduct"></add-product>
             </div>
         </modal>
+        <button @click="CreateProductsModalShow = true"
+           class=" cursor-pointer mb-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600">Add Product</button>
         <table class="w-full">
             <thead>
             <tr>
@@ -42,7 +44,7 @@
 
 <script>
 import Product from "./Product";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import AddProduct from "./AddProduct";
 export default {
     components: {Product, Modal, AddProduct},
