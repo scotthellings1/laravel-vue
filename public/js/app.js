@@ -2133,6 +2133,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "QuotesShow",
@@ -2151,7 +2173,8 @@ __webpack_require__.r(__webpack_exports__);
         vat: 0,
         total: 0
       },
-      products: {}
+      products: {},
+      quoteProducts: {}
     };
   },
   created: function created() {
@@ -2170,6 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
         return 'Pending';
       }
     }
+  },
+  methods: {
+    addProduct: function addProduct(event) {}
   }
 });
 
@@ -21639,35 +21665,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("modal", {
-        attrs: { showing: _vm.showAddProductModal },
-        on: {
-          close: function ($event) {
-            _vm.showAddProductModal = false
-          },
-        },
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "mt-8 w-full bg-white py-4 px-3" }, [
-        _vm._v("Customer: " + _vm._s(_vm.quote.customer_name)),
-        _c("br"),
-        _vm._v("\n        Email: " + _vm._s(_vm.quote.customer_email)),
-        _c("br"),
-        _vm._v("\n        Quote Status: " + _vm._s(_vm.status)),
-      ]),
-    ],
-    1
-  )
-}
+var render = function () {}
 var staticRenderFns = []
-render._withStripped = true
 
 
 
