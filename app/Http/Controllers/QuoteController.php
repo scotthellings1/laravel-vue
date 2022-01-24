@@ -8,6 +8,9 @@ use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 
+/**
+ *
+ */
 class QuoteController extends Controller
 {
     /**
@@ -34,10 +37,8 @@ class QuoteController extends Controller
 
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Quote  $quote
+     * @return QuoteResource
      */
     public function show(Quote $quote)
     {

@@ -35,7 +35,10 @@ class ProductsController extends Controller
         return new ProductResource($product);
     }
 
-
+    public function show(Product $product)
+    {
+        return new ProductResource($product);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -46,6 +49,7 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
+
     }
 
     /**
