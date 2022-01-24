@@ -2201,23 +2201,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2265,8 +2248,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleAddProductToQuote: function handleAddProductToQuote(e) {
       this.showAddProductModal = false;
-      this.quoteProducts.push(e);
-    }
+      this.quoteProducts.push(e); //TODO - assign products to quote and store in db
+    } // TODO - get current products for the quote
+
   }
 });
 
@@ -21792,7 +21776,9 @@ var render = function () {
         },
       },
       [
-        _c("option", { attrs: { selected: "" } }, [_vm._v("Add a Product")]),
+        _c("option", { attrs: { selected: "", disabled: "" } }, [
+          _vm._v("select a Product"),
+        ]),
         _vm._v(" "),
         _vm._l(_vm.products, function (product, index) {
           return _c("option", { domProps: { value: product.id } }, [
@@ -21807,7 +21793,7 @@ var render = function () {
       "button",
       {
         staticClass:
-          " cursor-pointer mb-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600",
+          " cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600",
         on: { click: _vm.AddProductToQuote },
       },
       [_vm._v("Add\n        Quote")]
@@ -21923,7 +21909,7 @@ var render = function () {
             },
           },
         },
-        [_vm._v("Add\n        Product to Quote\n    ")]
+        [_vm._v("Add\n        Product To Quote\n    ")]
       ),
     ],
     2

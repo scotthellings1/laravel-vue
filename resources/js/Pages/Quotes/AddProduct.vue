@@ -5,11 +5,11 @@
                     focus:outline-none"
                 aria-label="Default select example"
                 @change="getProduct($event)">
-            <option selected>Add a Product</option>
+            <option selected disabled>select a Product</option>
             <option v-for="(product, index)  in products" :value="product.id">{{ product.name }}</option>
         </select>
         <button @click="AddProductToQuote"
-                class=" cursor-pointer mb-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600">Add
+                class=" cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600">Add
             Quote</button>
     </div>
 </template>
