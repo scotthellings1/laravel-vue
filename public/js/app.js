@@ -2201,6 +2201,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2231,6 +2240,9 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/quotes/' + this.$route.params.id).then(function (response) {
       _this.quote = response.data.data;
     });
+    axios.get('/api/quotes/' + this.$route.params.id + '/products').then(function (response) {
+      _this.quoteProducts = response.data.data;
+    });
     axios.get('/api/products').then(function (response) {
       _this.products = response.data.data;
     });
@@ -2246,11 +2258,22 @@ __webpack_require__.r(__webpack_exports__);
     addProduct: function addProduct(event) {
       console.log(event.target.value);
     },
-    handleAddProductToQuote: function handleAddProductToQuote(e) {
+    removeQuoteProduct: function removeQuoteProduct(index) {
+      this.quoteProducts.splice(index, 1);
+    },
+    handleAddProductToQuote: function handleAddProductToQuote(product) {
       this.showAddProductModal = false;
-      this.quoteProducts.push(e); //TODO - assign products to quote and store in db
-    } // TODO - get current products for the quote
 
+      if (this.quoteProducts.filter(function (quoteProduct) {
+        return quoteProduct.id === product.id;
+      }).length > 0) {
+        console.log('already added'); // TODO add alert to user that product is already on the quote
+      } else {
+        axios.post('/api/quotes/' + this.$route.params.id + '/products', {
+          'product_id': product.id
+        }).then(this.quoteProducts.push(product));
+      }
+    }
   }
 });
 
@@ -21886,16 +21909,50 @@ var render = function () {
         _vm._v("\n        Quote Status: " + _vm._s(_vm.status) + "\n    "),
       ]),
       _vm._v(" "),
-      _vm._l(_vm.quoteProducts, function (product) {
-        return _c("div", { staticClass: "mt-8 w-full bg-white py-4 px-3" }, [
-          _vm._v(
-            "\n        " +
-              _vm._s(product.name) +
-              " | £" +
-              _vm._s(product.price.toFixed(2)) +
-              "\n    "
-          ),
-        ])
+      _vm._l(_vm.quoteProducts, function (product, index) {
+        return _c(
+          "div",
+          {
+            staticClass: "mt-8 flex justify-between w-full bg-white py-4 px-3",
+          },
+          [
+            _c("div", [
+              _vm._v(
+                _vm._s(product.name) + " | £" + _vm._s(product.price.toFixed(2))
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "svg",
+                {
+                  staticClass: "w-6 h-6 text-red-400 cursor-pointer",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    stroke: "currentColor",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.removeQuoteProduct(index)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
+                    },
+                  }),
+                ]
+              ),
+            ]),
+          ]
+        )
       }),
       _vm._v(" "),
       _c(

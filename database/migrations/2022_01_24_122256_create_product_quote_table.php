@@ -17,6 +17,7 @@ class CreateProductQuoteTable extends Migration
             $table->id();
             $table->foreignId('product_id');
             $table->foreignId('quote_id');
+            $table->unsignedInteger('qty')->default(1);
             $table->timestamps();
         });
     }

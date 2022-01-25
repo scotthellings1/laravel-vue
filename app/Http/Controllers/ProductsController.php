@@ -13,53 +13,66 @@ use Illuminate\Http\Request;
  */
 class ProductsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductCollection
      */
     public function index()
     {
-        return new ProductCollection(Product::all());
+        return (new ProductCollection(Product::all()))
+            ->additional(['message' => 'success']);
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreProductRequest  $request
+     * @return ProductResource
      */
     public function store(StoreProductRequest $request)
     {
         $product = Product::create($request->validated());
-        return new ProductResource($product);
+        return (new ProductResource($product))
+            ->additional(['message' => 'Product Added']);
     }
 
+    /**
+     * Show the specified resource
+     *
+     * @param  Product  $product
+     * @return ProductResource
+     */
     public function show(Product $product)
     {
         return new ProductResource($product);
     }
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Product  $product
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
-
+        return response()->json(['message' => 'Product Updated!']);
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Delete the specified resource from storage
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Product $product)
     {
         $product->delete();
+        return response()->json(['message' => 'Product Deleted!']);
     }
 }
