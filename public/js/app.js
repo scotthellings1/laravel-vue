@@ -2258,8 +2258,8 @@ __webpack_require__.r(__webpack_exports__);
     addProduct: function addProduct(event) {
       console.log(event.target.value);
     },
-    removeQuoteProduct: function removeQuoteProduct(index) {
-      this.quoteProducts.splice(index, 1);
+    removeQuoteProduct: function removeQuoteProduct(index, product) {
+      axios["delete"]('/api/quotes/' + this.$route.params.id + '/products/' + product.id).then(this.quoteProducts.splice(index, 1));
     },
     handleAddProductToQuote: function handleAddProductToQuote(product) {
       this.showAddProductModal = false;
@@ -21935,7 +21935,7 @@ var render = function () {
                   },
                   on: {
                     click: function ($event) {
-                      return _vm.removeQuoteProduct(index)
+                      return _vm.removeQuoteProduct(index, product)
                     },
                   },
                 },

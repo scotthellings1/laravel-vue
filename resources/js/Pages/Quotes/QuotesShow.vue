@@ -11,7 +11,7 @@
         <div class="mt-8 flex justify-between w-full bg-white py-4 px-3" v-for="(product, index) in quoteProducts">
             <div>{{ product.name }} | £{{ product.price.toFixed(2) }}</div>
             <div>
-                <svg @click="removeQuoteProduct(index)" xmlns="http://www.w3.org/2000/svg"
+                <svg @click="removeQuoteProduct(index, product)" xmlns="http://www.w3.org/2000/svg"
                      class="w-6 h-6 text-red-400 cursor-pointer"
                      fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">
@@ -78,8 +78,9 @@ export default {
         addProduct(event) {
             console.log(event.target.value)
         },
-        removeQuoteProduct(index) {
-            this.quoteProducts.splice(index, 1)
+        removeQuoteProduct(index, product) {
+            axios.delete('/api/quotes/' + this.$route.params.id + '/products/' + product.id)
+            .then(this.quoteProducts.splice(index, 1))
         },
         handleAddProductToQuote(product) {
             this.showAddProductModal = false
