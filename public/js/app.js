@@ -2231,6 +2231,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2247,9 +2270,7 @@ __webpack_require__.r(__webpack_exports__);
         customer_name: '',
         customer_email: '',
         accepted: '',
-        subtotal: 0,
-        vat: 0,
-        total: 0
+        total: this.quoteTotal
       },
       products: {},
       quoteProducts: []
@@ -2260,11 +2281,38 @@ __webpack_require__.r(__webpack_exports__);
     this.getQuoteProducts();
     this.getAllProducts();
   },
+  watch: {
+    'quote.total': function quoteTotal() {
+      this.updateQuoteTotal();
+    }
+  },
   computed: {
     status: function status() {
       if (this.quote.accepted === 0) {
         return 'Pending';
       }
+    },
+    quoteTotal: function quoteTotal() {
+      var total = 0;
+      this.quoteProducts.forEach(function (product) {
+        total += product.price * product.qty;
+      });
+      this.quote.total = total.toFixed(2);
+      return total;
+    },
+    subtotal: function subtotal() {
+      var subtotal = 0;
+      subtotal = this.quoteTotal - this.vat;
+      this.quote.subtotal = subtotal.toFixed(2);
+      return subtotal;
+    },
+    vat: function vat() {
+      var vatRate = 1.20;
+      var vat = 0;
+      var totalLessVat = this.quoteTotal / vatRate;
+      vat = this.quoteTotal - totalLessVat;
+      this.quote.vat = vat.toFixed(2);
+      return vat;
     }
   },
   methods: {
@@ -2312,6 +2360,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     productLineTotal: function productLineTotal(price, qty) {
       return price * qty;
+    },
+    updateQuoteTotal: function updateQuoteTotal() {
+      axios.put('/api/quotes/' + this.$route.params.id, {
+        'total': this.quote.total
+      });
     }
   }
 });
@@ -2483,7 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       var _this = this;
 
-      axios.post('http://localhost:8000/api/products', this.$data).then(function (response) {
+      axios.post('/api/products', this.$data).then(function (response) {
         return _this.$emit('onAddProduct');
       })["catch"](function (error) {
         return _this.errors = error.response.data.errors;
@@ -2598,7 +2651,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateProduct: function updateProduct() {
-      axios.put('http://localhost:8000/api/products/' + this.product.id, {
+      axios.put('/api/products/' + this.product.id, {
         name: this.product.name,
         description: this.product.description,
         price: this.product.price
@@ -2613,7 +2666,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteProduct: function deleteProduct() {
       var _this = this;
 
-      axios["delete"]('http://localhost:8000/api/products/' + this.product.id).then(function (response) {
+      axios["delete"]('/api/products/' + this.product.id).then(function (response) {
         _this.closeDelete();
 
         _this.$emit('onProductDeleted');
@@ -21921,6 +21974,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "rounded" },
     [
       _c(
         "modal",
@@ -21940,12 +21994,16 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "mt-8 w-full bg-white py-4 px-3" }, [
-        _vm._v("Customer: " + _vm._s(_vm.quote.customer_name)),
-        _c("br"),
-        _vm._v("\n        Email: " + _vm._s(_vm.quote.customer_email)),
-        _c("br"),
-        _vm._v("\n        Quote Status: " + _vm._s(_vm.status) + "\n    "),
+      _c("div", { staticClass: " flex mt-8 bg-white py-4 px-8" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-col  ml-2 space-y-2" }, [
+          _c("div", [_vm._v(_vm._s(_vm.quote.customer_name))]),
+          _vm._v(" "),
+          _c("div", [_vm._v(_vm._s(_vm.quote.customer_email))]),
+          _vm._v(" "),
+          _c("div", [_vm._v(_vm._s(_vm.status))]),
+        ]),
       ]),
       _vm._v(" "),
       _c(
@@ -22057,6 +22115,27 @@ var render = function () {
         0
       ),
       _vm._v(" "),
+      _c("div", { staticClass: "w-full flex justify-end" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "mt-2 flex  justify-center items-end  bg-white py-4 px-8",
+          },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-col items-end ml-2" }, [
+              _c("div", [_vm._v("£" + _vm._s(_vm.subtotal.toFixed(2)))]),
+              _vm._v(" "),
+              _c("div", [_vm._v("£" + _vm._s(_vm.vat.toFixed(2)))]),
+              _vm._v(" "),
+              _c("div", [_vm._v("£" + _vm._s(_vm.quoteTotal.toFixed(2)))]),
+            ]),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
       _c(
         "button",
         {
@@ -22074,7 +22153,36 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex flex-col items-end font-bold space-y-2" },
+      [
+        _c("div", [_vm._v("Customer:")]),
+        _vm._v(" "),
+        _c("div", [_vm._v("Email:")]),
+        _vm._v(" "),
+        _c("div", [_vm._v("Quote Status:")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex flex-col items-end font-bold" }, [
+      _c("div", [_vm._v("Subtotal:")]),
+      _vm._v(" "),
+      _c("div", [_vm._v("Vat:")]),
+      _vm._v(" "),
+      _c("div", [_vm._v("Total:")]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -23082,7 +23190,9 @@ var render = function () {
           { staticClass: "text-sm font-medium leading-5 text-gray-900" },
           [
             _vm._v(
-              "\n                " + _vm._s(_vm.quote.total) + "\n            "
+              "\n                £" +
+                _vm._s(_vm.quote.total.toFixed(2)) +
+                "\n            "
             ),
           ]
         ),

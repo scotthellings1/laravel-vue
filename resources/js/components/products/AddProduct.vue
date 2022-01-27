@@ -94,7 +94,7 @@ export default {
     },
     methods: {
         onSubmit() {
-            axios.post('http://localhost:8000/api/products', this.$data)
+            axios.post('/api/products', this.$data)
             .then(response => this.$emit('onAddProduct'))
             .catch(error => this.errors = error.response.data.errors)
         }

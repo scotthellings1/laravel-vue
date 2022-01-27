@@ -10,7 +10,7 @@
     <body class="bg-gray-100">
     <div id="app" class="container mx-auto p-6">
 
-        <div class="space-x-2">
+        <div class="">
             <router-link
                 class="nav-link"
                 to="/"
@@ -27,8 +27,8 @@
                 to="/quotes"
             >Quotes
             </router-link>
-            <router-view></router-view>
-        </div>
+
+        </div> <router-view></router-view>
     </div>
 
         <script src="{{asset('js/app.js')}}" ></script>

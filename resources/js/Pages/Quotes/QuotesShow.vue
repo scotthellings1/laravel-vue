@@ -1,12 +1,20 @@
 <template>
-    <div>
+    <div class="rounded">
 
         <modal :showing="showAddProductModal" @close="showAddProductModal = false">
             <add-product @onProductAddedToQuote="handleAddProductToQuote"></add-product>
         </modal>
-        <div class="mt-8 w-full bg-white py-4 px-3">Customer: {{ quote.customer_name }}<br>
-            Email: {{ quote.customer_email }}<br>
-            Quote Status: {{ status }}
+        <div class=" flex mt-8 bg-white py-4 px-8">
+            <div class="flex flex-col items-end font-bold space-y-2">
+                <div>Customer:</div>
+                <div>Email:</div>
+                <div>Quote Status:</div>
+            </div>
+            <div class="flex flex-col  ml-2 space-y-2">
+                <div>{{ quote.customer_name }}</div>
+                <div>{{ quote.customer_email }}</div>
+                <div>{{ status }}</div>
+            </div>
         </div>
         <div class="mt-8">
             <div class="mt-2 flex justify-between items-center w-full bg-white py-4 px-3" v-for="(product, index) in
@@ -41,6 +49,21 @@
 
             </div>
         </div>
+        <div class="w-full flex justify-end">
+            <div class="mt-2 flex  justify-center items-end  bg-white py-4 px-8">
+                <div class="flex flex-col items-end font-bold">
+                    <div>Subtotal:</div>
+                    <div>Vat:</div>
+                    <div>Total:</div>
+                </div>
+                <div class="flex flex-col items-end ml-2">
+                    <div>£{{ subtotal.toFixed(2) }}</div>
+                    <div>£{{ vat.toFixed(2) }}</div>
+                    <div>£{{ quoteTotal.toFixed(2) }}</div>
+                </div>
+
+            </div>
+        </div>
         <button @click="showAddProductModal = true"
                 class=" cursor-pointer my-4 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600">
             Add Product To Quote
@@ -63,9 +86,7 @@ export default {
                 customer_name: '',
                 customer_email: '',
                 accepted: '',
-                subtotal: 0,
-                vat: 0,
-                total: 0,
+                total: this.quoteTotal,
             },
             products: {},
             quoteProducts: []
@@ -76,12 +97,40 @@ export default {
         this.getQuoteProducts()
         this.getAllProducts()
     },
+    watch: {
+        'quote.total': function () {
+            this.updateQuoteTotal()
+        }
+        },
     computed: {
         status() {
             if (this.quote.accepted === 0) {
                 return 'Pending'
             }
         },
+        quoteTotal() {
+            let total = 0
+            this.quoteProducts.forEach(product => {
+                total += product.price * product.qty
+            })
+            this.quote.total = total. toFixed(2)
+            return total
+        },
+        subtotal() {
+            let subtotal = 0
+            subtotal = this.quoteTotal - this.vat
+            this.quote.subtotal = subtotal.toFixed(2)
+            return subtotal
+
+        },
+        vat() {
+          let vatRate = 1.20
+            let vat = 0
+            let totalLessVat = this.quoteTotal / vatRate
+            vat = this.quoteTotal-totalLessVat
+            this.quote.vat = vat.toFixed(2)
+            return vat
+        }
     },
     methods: {
         getQuoteDetails() {
@@ -126,6 +175,11 @@ export default {
         },
         productLineTotal(price, qty) {
             return price * qty
+        },
+        updateQuoteTotal() {
+            axios.put('/api/quotes/' + this.$route.params.id, {
+                'total': this.quote.total
+            })
         }
     }
 }

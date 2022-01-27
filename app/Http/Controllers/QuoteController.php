@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuoteRequest;
+use App\Http\Requests\UpdateQuoteRequest;
 use App\Http\Resources\QuoteCollection;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
@@ -52,9 +53,10 @@ class QuoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateQuoteRequest $request, Quote $quote)
     {
-        //
+        $quote->update($request->all());
+
     }
 
     /**

@@ -93,7 +93,7 @@ export default {
 
     methods: {
         updateProduct() {
-            axios.put('http://localhost:8000/api/products/' + this.product.id,
+            axios.put('/api/products/' + this.product.id,
                 {
                     name: this.product.name,
                     description: this.product.description,
@@ -111,7 +111,7 @@ export default {
             this.isDeleting = false
         },
         deleteProduct() {
-            axios.delete('http://localhost:8000/api/products/' + this.product.id)
+            axios.delete('/api/products/' + this.product.id)
                 .then((response) => {
                     this.closeDelete()
                     this.$emit('onProductDeleted')

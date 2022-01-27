@@ -17,8 +17,6 @@ class CreateQuotesTable extends Migration
             $table->id()->startingValue(1001);
             $table->string('customer_name');
             $table->string('customer_email');
-            $table->integer('subtotal')->nullable();
-            $table->integer('vat')->nullable();
             $table->integer('total')->nullable();
             $table->boolean('accepted')->default(0);
             $table->timestamps();
