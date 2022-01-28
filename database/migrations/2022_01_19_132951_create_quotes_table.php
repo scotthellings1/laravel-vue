@@ -18,7 +18,7 @@ class CreateQuotesTable extends Migration
             $table->string('customer_name');
             $table->string('customer_email');
             $table->integer('total')->nullable();
-            $table->boolean('accepted')->default(0);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

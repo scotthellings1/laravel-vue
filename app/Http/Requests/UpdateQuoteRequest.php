@@ -24,8 +24,8 @@ class UpdateQuoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_email' => ['sometimes', 'required'],
-            'customer_name' => ['sometimes', 'required'],
+            'customer_email' => ['required'],
+            'customer_name' => ['required'],
             'total' => ['numeric'],
         ];
     }

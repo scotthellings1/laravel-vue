@@ -18,10 +18,8 @@ class QuoteResource extends JsonResource
             'id' => $this->id,
             'customer_name' => $this->customer_name,
             'customer_email' => $this->customer_email,
-            'subtotal' => $this->subtotal,
-            'vat' => $this->vat,
             'total' => $this->total,
-            'accepted' => $this->accepted,
+            'status' => $this->status,
         ];
     }
 }

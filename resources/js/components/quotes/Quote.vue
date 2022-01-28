@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm font-medium leading-5 text-gray-900">
+                <div class="text-sm text-red-400 font-medium leading-5 text-gray-900">
                     {{ quote.id }}
                 </div>
         </td>
@@ -21,8 +21,9 @@
                 </div>
         </td>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm font-medium leading-5 text-gray-900">
-                    {{ status }}
+                <div class="text-sm font-medium leading-5 " :class="quote.status === 'pending' ?
+                'text-blue-400' : quote.status === 'accepted' ? 'text-green-400' : 'text-red-400'  ">
+                    {{ quote.status }}
                 </div>
         </td>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -44,16 +45,5 @@
 export default {
     name: "Quote",
     props:['quote'],
-    computed: {
-        status() {
-            if (this.quote.accepted === '0') {
-                return 'Pending'
-            }
-        }
-    },
 }
 </script>
-
-<style scoped>
-
-</style>
