@@ -50,7 +50,6 @@
             >
                 <option value="pending">Pending</option>
                 <option value="accepted">Accepted</option>
-                <option value="sent">Sent</option>
             </select>
         </div>
 

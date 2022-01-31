@@ -13,8 +13,8 @@
             >
                 Edit Quote Details
             </button>
-            <button @click="sendQuoteEmail"
-                    class="px-2 py-2 mt-8 h-12 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600"
+            <button @click="sendQuoteEmail" :disabled="disabled"
+                    class="px-2 py-2 mt-8 h-12 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400"
             >
                 Send Quote
             </button>
@@ -192,8 +192,14 @@ export default {
         handleAddProductToQuote(product) {
             this.showAddProductModal = false
             if (this.quoteProducts.filter(quoteProduct => quoteProduct.id === product.id).length > 0) {
-                console.log('already added')
-                // TODO add alert to user that product is already on the quotee
+                this.$swal({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    icon: 'warning',
+                    text: 'Product already Addded!',
+                })
             } else {
                 axios.post('/api/quotes/' + this.$route.params.id + '/products', {
                     'product_id': product.id
@@ -216,6 +222,24 @@ export default {
         },
         sendQuoteEmail(){
             axios.get('/api/quotes/send/' + this.$route.params.id)
+            .then(
+                this.$swal({
+                    toast: false,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    icon: 'success',
+                    text: 'Quote Sent!',
+                })
+
+            )
+            axios.put('/api/quotes/' + this.$route.params.id, {
+                'customer_email' : this.quote.customer_email,
+                'customer_name': this.quote.customer_name,
+                'status': 'sent'
+            })
+            .then(
+                this.getQuoteDetails
+            )
         }
     },
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateQuoteRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class UpdateQuoteRequest extends FormRequest
             'customer_email' => ['required'],
             'customer_name' => ['required'],
             'total' => ['numeric'],
+            'status' => Rule::in(['pending', 'accepted', 'sent'])
         ];
     }
 }

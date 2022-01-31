@@ -68,6 +68,14 @@ export default {
         handleAddProduct() {
             this.CreateProductsModalShow = false
             this.getProducts()
+            this.$swal({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                icon: 'success',
+                text: 'Product Addded!',
+            })
         },
 
         handleProductDeleted(index) {

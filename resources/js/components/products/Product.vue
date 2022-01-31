@@ -99,9 +99,21 @@ export default {
                     description: this.product.description,
                     price: this.product.price
                 })
-                .then(
+                .then((response) => {
+                    console.log(
+                        response.data.message
+                    )
+                    this.$swal({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        text: response.data.message,
+                    })
                     this.closeEdit
-                )
+
+                })
 
         },
         closeEdit() {
@@ -114,6 +126,14 @@ export default {
             axios.delete('/api/products/' + this.product.id)
                 .then((response) => {
                     this.closeDelete()
+                    this.$swal({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        text: response.data.message,
+                    })
                     this.$emit('onProductDeleted')
                 })
             .catch(error => console.log(error.data))

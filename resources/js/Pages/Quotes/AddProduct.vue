@@ -38,6 +38,10 @@ export default {
         },
         AddProductToQuote() {
             this.$emit('onProductAddedToQuote', this.product)
+
+
+
+
         }
     },
 }
