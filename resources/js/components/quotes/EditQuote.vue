@@ -10,14 +10,15 @@
         text-base
         font-normal
         text-gray-700
-        bg-white bg-clip-padding
+         bg-clip-padding
         border border-solid border-gray-300
         rounded
         transition
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="customer_name"
-                   aria-describedby="emailHelp" placeholder="John Smith">
+                   aria-describedby="emailHelp" placeholder="John Smith" :class="disabled ? 'bg-gray-100' : 'bg-white' "
+                   :disabled="disabled">
             <span class="text-sm mt-1 text-red-400" v-if="errors.customer_name">{{errors.customer_name[0]}}</span>
         </div>
 
@@ -30,15 +31,27 @@
         text-base
         font-normal
         text-gray-700
-        bg-white bg-clip-padding
+        bg-clip-padding
         border border-solid border-gray-300
         rounded
         transition
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="customer_email"
-                   placeholder="example@mail.com">
+                   placeholder="example@mail.com" :class="disabled ? 'bg-gray-100' : 'bg-white' " :disabled="disabled">
             <span class="text-sm mt-1 text-red-400" v-if="errors.customer_email">{{errors.customer_email[0]}}</span>
+        </div>
+        <div class="form-group mb-6">
+            <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat-->
+                    border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
+                    focus:outline-none"
+                    aria-label="Default select example"
+                    v-model="quote.status"
+            >
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="sent">Sent</option>
+            </select>
         </div>
 
 
@@ -46,7 +59,7 @@
         <button type="submit"
                 class="w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700
                 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg
-                transition duration-150 ease-in-out">
+                transition duration-150 ease-in-out" >
             Edit Quote
         </button>
     </form>
@@ -55,7 +68,7 @@
 <script>
 export default {
     name: "EditQuote",
-    props: ['quote'],
+    props: ['quote', 'disabled'],
     data() {
         return {
             errors: {}
@@ -63,7 +76,7 @@ export default {
     },
     methods: {
         onSubmit() {
-            axios.put('/api/quotes/' + this.$route.params.id , this.$data)
+            axios.put('/api/quotes/' + this.$route.params.id , this.quote)
                 .then( response => this.$emit('onEditQuote'))
                 .catch((error) => {
                     console.log(error.data)

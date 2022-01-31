@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\QuoteItemController;
@@ -25,4 +26,5 @@ Route::post('/quotes/{quote}/products', [QuoteItemController::class, 'store']);
 Route::put('/quotes/{quote}/products/{product}', [QuoteItemController::class, 'update']);
 Route::delete('/quotes/{quote}/products/{product}', [QuoteItemController::class, 'destroy']);
 Route::apiResource('/products', ProductsController::class);
+Route::get('/quotes/send/{quote}', [EmailController::class, 'send']);
 Route::apiResource('/quotes', QuoteController::class);
