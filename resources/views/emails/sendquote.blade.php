@@ -15,15 +15,13 @@ $p->price,2)}}|
 @endforeach
 @endcomponent
 
+___
 **Subtotal:** £{{number_format($quote->total/1.2, 2)}}
 
 **VAT:** £{{number_format($quote->total - $quote->total/1.2, 2 )}}
 
 **Total:** £{{number_format( $quote->total,2) }}
 
-@component('mail::button', ['url' => env('APP_URL') . '/quotes/' . $quote->id])
-View Quote
-@endcomponent
 
 Thanks,<br>
 {{ config('app.name') }}
