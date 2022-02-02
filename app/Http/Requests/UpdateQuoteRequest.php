@@ -25,8 +25,8 @@ class UpdateQuoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_email' => ['required'],
-            'customer_name' => ['required', 'email'],
+            'customer_email' => ['required', 'email'],
+            'customer_name' => ['required' ],
             'total' => ['numeric'],
             'status' => Rule::in(['pending', 'accepted', 'sent'])
         ];
