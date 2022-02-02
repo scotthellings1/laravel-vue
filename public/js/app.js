@@ -2103,18 +2103,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddProduct",
@@ -2657,6 +2645,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue_fragment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-fragment */ "./node_modules/vue-fragment/dist/vue-fragment.esm.js");
 //
 //
 //
@@ -2771,14 +2760,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['product'],
+  components: {
+    Fragment: vue_fragment__WEBPACK_IMPORTED_MODULE_0__.Fragment
+  },
   data: function data() {
     return {
       errors: {},
       isEditing: false,
       isDeleting: false
     };
+  },
+  computed: {
+    disabled: function disabled() {
+      if (this.product.name === '' || this.product.description === '') {
+        return true;
+      }
+    }
   },
   methods: {
     updateProduct: function updateProduct() {
@@ -21313,6 +21353,25 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-fragment/dist/vue-fragment.esm.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vue-fragment/dist/vue-fragment.esm.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "Fragment": () => (/* binding */ Fragment),
+/* harmony export */   "SSR": () => (/* binding */ SSR),
+/* harmony export */   "Plugin": () => (/* binding */ Plugin)
+/* harmony export */ });
+function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _objectSpread(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{},r=Object.keys(n);"function"==typeof Object.getOwnPropertySymbols&&(r=r.concat(Object.getOwnPropertySymbols(n).filter(function(e){return Object.getOwnPropertyDescriptor(n,e).enumerable}))),r.forEach(function(t){_defineProperty(e,t,n[t])})}return e}var freeze=function(e,t,n){Object.defineProperty(e,t,{configurable:!0,get:function(){return n},set:function(e){console.warn("tried to set frozen property ".concat(t," with ").concat(e))}})},component={abstract:!0,name:"Fragment",props:{name:{type:String,default:function(){return Math.floor(Date.now()*Math.random()).toString(16)}},html:{type:String,default:null}},mounted:function(){var e=this.$el,t=e.parentNode;e.__isFragment=!0,e.__isMounted=!1;var n=document.createComment("fragment#".concat(this.name,"#head")),r=document.createComment("fragment#".concat(this.name,"#tail"));e.__head=n,e.__tail=r;var o=document.createDocumentFragment();if(o.appendChild(n),Array.from(e.childNodes).forEach(function(t){var n=!t.hasOwnProperty("__isFragmentChild__");o.appendChild(t),n&&(freeze(t,"parentNode",e),freeze(t,"__isFragmentChild__",!0))}),o.appendChild(r),this.html){var a=document.createElement("template");a.innerHTML=this.html,Array.from(a.content.childNodes).forEach(function(e){o.appendChild(e)})}var i=e.nextSibling;t.insertBefore(o,e,!0),t.removeChild(e),freeze(e,"parentNode",t),freeze(e,"nextSibling",i),i&&freeze(i,"previousSibling",e),e.__isMounted=!0},render:function(e){var t=this,n=this.$slots.default;return n&&n.length&&n.forEach(function(e){return e.data=_objectSpread({},e.data,{attrs:_objectSpread({fragment:t.name},(e.data||{}).attrs)})}),e("div",{attrs:{fragment:this.name}},n)}};function ssr(e,t){ true&&console.warn("v-fragment SSR is not implemented yet.")}var Fragment=component,SSR=ssr,Plugin={install:function(e){e.component("fragment",component)}},index={Fragment:component,Plugin:Plugin,SSR:ssr};/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Home.vue":
 /*!*************************************!*\
   !*** ./resources/js/Pages/Home.vue ***!
@@ -22362,7 +22421,7 @@ var render = function () {
             " cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600",
           on: { click: _vm.AddProductToQuote },
         },
-        [_vm._v("Add\n            Quote")]
+        [_vm._v("Add\n        Quote")]
       ),
     ],
     1
@@ -23052,72 +23111,331 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
+  return _c("fragment", [
     _c(
-      "td",
-      { staticClass: "px-6 py-4 whitespace-no-wrap border-b border-gray-200" },
+      "tr",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.isEditing,
+            expression: "!isEditing",
+          },
+        ],
+      },
       [
-        _c("div", { staticClass: "ml-4" }, [
-          _c(
-            "div",
-            {
-              directives: [
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c("div", { staticClass: "ml-4" }, [
+              _c(
+                "div",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.isEditing,
-                  expression: "!isEditing",
+                  staticClass:
+                    "capitalize text-sm font-medium leading-5 text-gray-900",
                 },
-              ],
-              staticClass:
-                "capitalize text-sm font-medium leading-5 text-gray-900",
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.product.name) +
-                  "\n\n            "
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.product.name) +
+                      "\n                "
+                  ),
+                ]
               ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.isEditing,
-                  expression: "isEditing",
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "capitalize text-sm leading-5 text-gray-500" },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.product.description) +
+                    "\n            "
+                ),
+              ]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c("div", { staticClass: "text-sm leading-5 text-gray-500" }, [
+              _vm._v(
+                "\n                £" +
+                  _vm._s(_vm.product.price.toFixed(2)) +
+                  "\n            "
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: " cursor-pointer w-6 h-6 text-blue-400",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor",
                 },
-              ],
-              staticClass: "text-sm font-medium leading-5 text-gray-900",
-            },
-            [
+                on: {
+                  click: function ($event) {
+                    _vm.isEditing = !_vm.isEditing
+                  },
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
+                  },
+                }),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isEditing,
+                    expression: "isEditing",
+                  },
+                ],
+                staticClass: "flex space-x-2 items-center ",
+                on: {
+                  click: function ($event) {
+                    _vm.isEditing = !_vm.isEditing
+                  },
+                },
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      " cursor-pointer  rounded-md px-2 py-2 text-white bg-blue-400",
+                    on: { click: _vm.updateProduct },
+                  },
+                  [_vm._v("SAVE")]
+                ),
+              ]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c(
+              "svg",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isDeleting,
+                    expression: "!isDeleting",
+                  },
+                ],
+                staticClass: "w-6 h-6 text-red-400",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor",
+                },
+                on: {
+                  click: function ($event) {
+                    _vm.isDeleting = !_vm.isDeleting
+                  },
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
+                  },
+                }),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isDeleting,
+                    expression: "isDeleting",
+                  },
+                ],
+                staticClass: "flex space-x-2 items-center w-6 ",
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      " cursor-pointer rounded-md px-2 py-2 text-white bg-red-400",
+                    on: { click: _vm.deleteProduct },
+                  },
+                  [_vm._v("DELETE")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      " cursor-pointer rounded-md px-2 py-2 text-white bg-gray-400",
+                    on: { click: _vm.closeDelete },
+                  },
+                  [_vm._v("CANCEL")]
+                ),
+              ]
+            ),
+          ]
+        ),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "tr",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isEditing,
+            expression: "isEditing",
+          },
+        ],
+      },
+      [
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c("div", { staticClass: "ml-4" }, [
+              _c(
+                "div",
+                { staticClass: "text-sm font-medium leading-5 text-gray-900" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.product.name,
+                        expression: "product.name",
+                      },
+                    ],
+                    staticClass:
+                      "bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                    attrs: { type: "text", name: "name", autofocus: "" },
+                    domProps: { value: _vm.product.name },
+                    on: {
+                      blur: function () {
+                        if (_vm.product.name === "") {
+                          _vm.$swal({
+                            toast: false,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            icon: "error",
+                            text: "Name is required",
+                          })
+                        }
+                      },
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.product, "name", $event.target.value)
+                      },
+                    },
+                  }),
+                ]
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c("div", { staticClass: "text-sm leading-5 text-gray-500" }, [
               _c("input", {
                 directives: [
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.product.name,
-                    expression: "product.name",
+                    value: _vm.product.description,
+                    expression: "product.description",
                   },
                 ],
                 staticClass:
-                  "bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                attrs: { type: "text", name: "name", autofocus: "" },
-                domProps: { value: _vm.product.name },
+                  "bg-gray-100 p-2 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                attrs: { type: "text", name: "description" },
+                domProps: { value: _vm.product.description },
                 on: {
                   blur: function () {
-                    if (_vm.product.name === "") {
+                    if (_vm.product.description === "") {
                       _vm.$swal({
                         toast: false,
                         position: "top-end",
                         showConfirmButton: false,
                         timer: 3000,
                         icon: "error",
-                        text: "Name is required",
+                        text: "Description is required",
                       })
                     }
                   },
@@ -23125,329 +23443,226 @@ var render = function () {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.product, "name", $event.target.value)
+                    _vm.$set(_vm.product, "description", $event.target.value)
                   },
                 },
               }),
-            ]
-          ),
-        ]),
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "td",
-      { staticClass: "px-6 py-4 whitespace-no-wrap border-b border-gray-200" },
-      [
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isEditing,
-                expression: "!isEditing",
-              },
-            ],
-            staticClass: "capitalize text-sm leading-5 text-gray-500",
-          },
-          [
-            _vm._v(
-              "\n            " + _vm._s(_vm.product.description) + "\n        "
-            ),
+            ]),
           ]
         ),
         _vm._v(" "),
         _c(
-          "div",
+          "td",
           {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isEditing,
-                expression: "isEditing",
-              },
-            ],
-            staticClass: "text-sm leading-5 text-gray-500",
+            staticClass:
+              "px-6 py-4 whitespace-no-wrap border-b border-gray-200",
           },
           [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.product.description,
-                  expression: "product.description",
-                },
-              ],
-              staticClass:
-                "bg-gray-100 p-2 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-              attrs: { type: "text", name: "description" },
-              domProps: { value: _vm.product.description },
-              on: {
-                blur: function () {
-                  if (_vm.product.description === "") {
-                    _vm.$swal({
-                      toast: false,
-                      position: "top-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      icon: "error",
-                      text: "Description is required",
-                    })
-                  }
-                },
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.product, "description", $event.target.value)
-                },
-              },
-            }),
-          ]
-        ),
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "td",
-      { staticClass: "px-6 py-4 whitespace-no-wrap border-b border-gray-200" },
-      [
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isEditing,
-                expression: "!isEditing",
-              },
-            ],
-            staticClass: "text-sm leading-5 text-gray-500",
-          },
-          [
-            _vm._v(
-              "\n            £" +
-                _vm._s(_vm.product.price.toFixed(2)) +
-                "\n        "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isEditing,
-                expression: "isEditing",
-              },
-            ],
-            staticClass: "text-sm leading-5 text-gray-500",
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.number",
-                  value: _vm.product.price,
-                  expression: "product.price",
-                  modifiers: { number: true },
-                },
-              ],
-              staticClass:
-                "bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-              attrs: { type: "text", name: "price" },
-              domProps: { value: _vm.product.price },
-              on: {
-                blur: [
-                  function () {
-                    if (_vm.product.price === "") {
-                      _vm.$swal({
-                        toast: false,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        icon: "error",
-                        text: "Price is required",
-                      })
-                    }
-                  },
-                  function ($event) {
-                    return _vm.$forceUpdate()
+            _c("div", { staticClass: "text-sm leading-5 text-gray-500" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.number",
+                    value: _vm.product.price,
+                    expression: "product.price",
+                    modifiers: { number: true },
                   },
                 ],
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.product, "price", _vm._n($event.target.value))
+                staticClass:
+                  "bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                attrs: {
+                  type: "number",
+                  name: "price",
+                  min: "0.01",
+                  step: "0.01",
+                },
+                domProps: { value: _vm.product.price },
+                on: {
+                  blur: [
+                    function () {
+                      if (_vm.product.price < 0.01) {
+                        _vm.product.price = 0.01
+                        _vm.$swal({
+                          toast: false,
+                          position: "top-end",
+                          showConfirmButton: false,
+                          timer: 3000,
+                          icon: "error",
+                          text: "Price can not be less than £0.01 please update!",
+                        })
+                      }
+                    },
+                    function ($event) {
+                      return _vm.$forceUpdate()
+                    },
+                  ],
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.product, "price", _vm._n($event.target.value))
+                  },
+                },
+              }),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c(
+              "svg",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isEditing,
+                    expression: "!isEditing",
+                  },
+                ],
+                staticClass: " cursor-pointer w-6 h-6 text-blue-400",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor",
+                },
+                on: {
+                  click: function ($event) {
+                    _vm.isEditing = !_vm.isEditing
+                  },
                 },
               },
-            }),
-          ]
-        ),
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "td",
-      {
-        staticClass:
-          "  px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200",
-      },
-      [
-        _c(
-          "svg",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isEditing,
-                expression: "!isEditing",
-              },
-            ],
-            staticClass: " cursor-pointer w-6 h-6 text-blue-400",
-            attrs: {
-              xmlns: "http://www.w3.org/2000/svg",
-              fill: "none",
-              viewBox: "0 0 24 24",
-              stroke: "currentColor",
-            },
-            on: {
-              click: function ($event) {
-                _vm.isEditing = !_vm.isEditing
-              },
-            },
-          },
-          [
-            _c("path", {
-              attrs: {
-                "stroke-linecap": "round",
-                "stroke-linejoin": "round",
-                "stroke-width": "2",
-                d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
-              },
-            }),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isEditing,
-                expression: "isEditing",
-              },
-            ],
-            staticClass: "flex space-x-2 items-center ",
-            on: {
-              click: function ($event) {
-                _vm.isEditing = !_vm.isEditing
-              },
-            },
-          },
-          [
-            _c(
-              "span",
-              {
-                staticClass:
-                  " cursor-pointer  rounded-md px-2 py-2 text-white bg-blue-400",
-                on: { click: _vm.updateProduct },
-              },
-              [_vm._v("SAVE")]
-            ),
-          ]
-        ),
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "td",
-      {
-        staticClass:
-          "px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200",
-      },
-      [
-        _c(
-          "svg",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isDeleting,
-                expression: "!isDeleting",
-              },
-            ],
-            staticClass: "w-6 h-6 text-red-400",
-            attrs: {
-              xmlns: "http://www.w3.org/2000/svg",
-              fill: "none",
-              viewBox: "0 0 24 24",
-              stroke: "currentColor",
-            },
-            on: {
-              click: function ($event) {
-                _vm.isDeleting = !_vm.isDeleting
-              },
-            },
-          },
-          [
-            _c("path", {
-              attrs: {
-                "stroke-linecap": "round",
-                "stroke-linejoin": "round",
-                "stroke-width": "2",
-                d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
-              },
-            }),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isDeleting,
-                expression: "isDeleting",
-              },
-            ],
-            staticClass: "flex space-x-2 items-center w-6 ",
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass:
-                  " cursor-pointer rounded-md px-2 py-2 text-white bg-red-400",
-                on: { click: _vm.deleteProduct },
-              },
-              [_vm._v("DELETE")]
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
+                  },
+                }),
+              ]
             ),
             _vm._v(" "),
             _c(
-              "a",
+              "div",
               {
-                staticClass:
-                  " cursor-pointer rounded-md px-2 py-2 text-white bg-gray-400",
-                on: { click: _vm.closeDelete },
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isEditing,
+                    expression: "isEditing",
+                  },
+                ],
+                staticClass: "flex space-x-2 items-center ",
+                on: {
+                  click: function ($event) {
+                    _vm.isEditing = !_vm.isEditing
+                  },
+                },
               },
-              [_vm._v("CANCEL")]
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      " cursor-pointer  rounded-md px-2 py-2 text-white bg-blue-400 disabled:bg-gray-400",
+                    attrs: { disabled: _vm.disabled },
+                    on: { click: _vm.updateProduct },
+                  },
+                  [_vm._v("SAVE\n            ")]
+                ),
+              ]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200",
+          },
+          [
+            _c(
+              "svg",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isDeleting,
+                    expression: "!isDeleting",
+                  },
+                ],
+                staticClass: "w-6 h-6 text-red-400",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor",
+                },
+                on: {
+                  click: function ($event) {
+                    _vm.isDeleting = !_vm.isDeleting
+                  },
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
+                  },
+                }),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isDeleting,
+                    expression: "isDeleting",
+                  },
+                ],
+                staticClass: "flex space-x-2 items-center w-6 ",
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      " cursor-pointer rounded-md px-2 py-2 text-white bg-red-400",
+                    on: { click: _vm.deleteProduct },
+                  },
+                  [_vm._v("DELETE")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      " cursor-pointer rounded-md px-2 py-2 text-white bg-gray-400",
+                    on: { click: _vm.closeDelete },
+                  },
+                  [_vm._v("CANCEL")]
+                ),
+              ]
             ),
           ]
         ),
