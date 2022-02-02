@@ -57,9 +57,9 @@ class ProductsController extends Controller
      * @param  Product  $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        $product->update($request->validated());
         return response()->json(['message' => 'Product Updated!']);
     }
 

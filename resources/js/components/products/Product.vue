@@ -2,7 +2,7 @@
     <tr>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
             <div class="ml-4">
-                <div v-show="!isEditing" class="text-sm font-medium leading-5 text-gray-900">
+                <div v-show="!isEditing" class="capitalize text-sm font-medium leading-5 text-gray-900">
                     {{ product.name }}
 
                 </div>
@@ -11,6 +11,16 @@
                            name="name"
                            v-model="product.name"
                            autofocus
+                           @blur="() => { if (product.name === '') {
+                           $swal({
+                              toast: false,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 3000,
+                              icon: 'error',
+                              text: 'Name is required',
+                           })
+                       }}"
                            class="bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                 </div>
 
@@ -19,13 +29,24 @@
         </td>
 
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div v-show="!isEditing" class="text-sm leading-5 text-gray-500">
+            <div v-show="!isEditing" class="capitalize text-sm leading-5 text-gray-500">
                 {{ product.description }}
             </div>
             <div v-show="isEditing" class="text-sm leading-5 text-gray-500">
                 <input type="text"
                        v-model="product.description"
                        name="description"
+                       @blur="() => { if (product.description === '') {
+                           $swal({
+                              toast: false,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 3000,
+                              icon: 'error',
+                              text: 'Description is required',
+                           })
+                       }}"
+
                        class="bg-gray-100 p-2 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
             </div>
         </td>
@@ -38,6 +59,16 @@
                 <input type="text"
                        v-model.number="product.price"
                        name="price"
+                       @blur="() => { if (product.price === '') {
+                           $swal({
+                              toast: false,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 3000,
+                              icon: 'error',
+                              text: 'Price is required',
+                           })
+                       }}"
                        class="bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 
             </div>
@@ -86,6 +117,7 @@ export default {
     props: ['product'],
     data() {
         return {
+            errors : {},
             isEditing: false,
             isDeleting: false
         }
@@ -111,9 +143,14 @@ export default {
                         icon: 'success',
                         text: response.data.message,
                     })
-                    this.closeEdit
+
 
                 })
+            .catch((error) => {
+                this.isEditing = true
+                this.errors = error.response.data.errors
+            })
+            .finally(this.closeEdit)
 
         },
         closeEdit() {

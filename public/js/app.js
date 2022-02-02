@@ -2306,6 +2306,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2420,6 +2443,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleEditQuote: function handleEditQuote() {
       this.showEditQuoteModal = false;
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: 'success',
+        text: 'Quote details updated!'
+      });
     },
     sendQuoteEmail: function sendQuoteEmail() {
       axios.get('/api/quotes/send/' + this.$route.params.id).then(this.$swal({
@@ -2451,7 +2482,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -2710,10 +2740,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['product'],
   data: function data() {
     return {
+      errors: {},
       isEditing: false,
       isDeleting: false
     };
@@ -2737,9 +2799,10 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'success',
           text: response.data.message
         });
-
-        _this.closeEdit;
-      });
+      })["catch"](function (error) {
+        _this.isEditing = true;
+        _this.errors = error.response.data.errors;
+      })["finally"](this.closeEdit);
     },
     closeEdit: function closeEdit() {
       this.isEditing = false;
@@ -2963,7 +3026,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       })["catch"](function (error) {
-        return console.log(error);
+        _this.errors = error.response.data.errors;
       });
     }
   }
@@ -3063,7 +3126,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.put('/api/quotes/' + this.$route.params.id, this.quote).then(function (response) {
         return _this.$emit('onEditQuote');
       })["catch"](function (error) {
-        console.log(error.data);
+        _this.errors = error.response.data.errors;
       });
     }
   }
@@ -22214,9 +22277,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Homde")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt-8" }, [
+      _c("h1", { staticClass: "text-2xl text-center" }, [
+        _vm._v("Quote Builder"),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -22393,25 +22467,41 @@ var render = function () {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "flex justify-between mt-8" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "px-2 py-2 mt-8 h-12 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600",
-            on: {
-              click: function ($event) {
-                _vm.showEditQuoteModal = true
+        _c("div", { staticClass: "flex space-x-4" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600",
+              on: {
+                click: function ($event) {
+                  _vm.showEditQuoteModal = true
+                },
               },
             },
-          },
-          [_vm._v("\n            Edit Quote Details\n        ")]
-        ),
+            [_vm._v("\n                Edit Quote Details\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600",
+              on: {
+                click: function ($event) {
+                  return _vm.$router.push("/quotes")
+                },
+              },
+            },
+            [_vm._v("\n                Back\n            ")]
+          ),
+        ]),
         _vm._v(" "),
         _c(
           "button",
           {
             staticClass:
-              "px-2 py-2 mt-8 h-12 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400",
+              "px-4 py-1 mt-8 h-10 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400",
             attrs: { disabled: _vm.disabled },
             on: { click: _vm.sendQuoteEmail },
           },
@@ -22419,15 +22509,29 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex px-8 py-4 mt-4 bg-white" }, [
+      _c("div", { staticClass: "flex px-8 py-4 mt-8 bg-white" }, [
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "flex flex-col ml-2 space-y-2" }, [
-          _c("div", [_vm._v(_vm._s(_vm.quote.customer_name))]),
+          _c("div", { staticClass: "capitalize" }, [
+            _vm._v(_vm._s(_vm.quote.customer_name)),
+          ]),
           _vm._v(" "),
           _c("div", [_vm._v(_vm._s(_vm.quote.customer_email))]),
           _vm._v(" "),
-          _c("div", [_vm._v(_vm._s(_vm.quote.status))]),
+          _c(
+            "div",
+            {
+              staticClass: "font-bold capitalize",
+              class:
+                _vm.quote.status === "pending"
+                  ? "text-blue-400"
+                  : _vm.quote.status === "accepted"
+                  ? "text-green-500"
+                  : "text-red-400",
+            },
+            [_vm._v(_vm._s(_vm.quote.status))]
+          ),
         ]),
       ]),
       _vm._v(" "),
@@ -22480,9 +22584,9 @@ var render = function () {
                   "div",
                   { staticClass: "flex items-center space-x-4 w-full" },
                   [
-                    _c("div", { staticClass: "mr-4 w-1/5" }, [
+                    _c("div", { staticClass: "mr-4 w-1/5 capitalize" }, [
                       _vm._v(
-                        "\n                     " +
+                        "\n                    " +
                           _vm._s(product.name) +
                           "\n                "
                       ),
@@ -22490,7 +22594,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "mr-4 w-1/5" }, [
                       _vm._v(
-                        "\n                     £" +
+                        "\n                    £" +
                           _vm._s(product.price.toFixed(2)) +
                           "\n                "
                       ),
@@ -22508,10 +22612,27 @@ var render = function () {
                           },
                         ],
                         staticClass:
-                          " inline  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding\n    border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white\n     focus:border-blue-600 focus:outline-none",
-                        attrs: { type: "number", min: "1" },
+                          " md:w-1/2 inline w-full  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding\n    border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white\n     focus:border-blue-600 focus:outline-none disabled:bg-gray-200",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          disabled: _vm.disabled,
+                        },
                         domProps: { value: product.qty },
                         on: {
+                          change: function () {
+                            if (product.qty < 1) {
+                              product.qty = 1
+                              _vm.$swal({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 3000,
+                                icon: "warning",
+                                text: "Product qty can not be less than 1!",
+                              })
+                            }
+                          },
                           blur: [
                             function ($event) {
                               return _vm.updateQuoteProductQty(product)
@@ -22550,6 +22671,14 @@ var render = function () {
                       _c(
                         "svg",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.quote.status === "pending",
+                              expression: "quote.status === 'pending'",
+                            },
+                          ],
                           staticClass: "w-6 h-6 text-red-400 cursor-pointer",
                           attrs: {
                             xmlns: "http://www.w3.org/2000/svg",
@@ -22590,7 +22719,7 @@ var render = function () {
             "button",
             {
               staticClass:
-                "px-2 py-2 my-4 h-12 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600",
+                "px-4 py-1 my-4 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600 disabled:bg-gray-400",
               attrs: { disabled: _vm.disabled },
               on: {
                 click: function ($event) {
@@ -22684,14 +22813,6 @@ var render = function () {
           {
             staticClass:
               "fixed inset-0 w-full h-screen flex items-center justify-center bg-gray-200 ",
-            on: {
-              click: function ($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                return _vm.close.apply(null, arguments)
-              },
-            },
           },
           [
             _c(
@@ -22948,7 +23069,8 @@ var render = function () {
                   expression: "!isEditing",
                 },
               ],
-              staticClass: "text-sm font-medium leading-5 text-gray-900",
+              staticClass:
+                "capitalize text-sm font-medium leading-5 text-gray-900",
             },
             [
               _vm._v(
@@ -22987,6 +23109,18 @@ var render = function () {
                 attrs: { type: "text", name: "name", autofocus: "" },
                 domProps: { value: _vm.product.name },
                 on: {
+                  blur: function () {
+                    if (_vm.product.name === "") {
+                      _vm.$swal({
+                        toast: false,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: "error",
+                        text: "Name is required",
+                      })
+                    }
+                  },
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
@@ -23016,7 +23150,7 @@ var render = function () {
                 expression: "!isEditing",
               },
             ],
-            staticClass: "text-sm leading-5 text-gray-500",
+            staticClass: "capitalize text-sm leading-5 text-gray-500",
           },
           [
             _vm._v(
@@ -23053,6 +23187,18 @@ var render = function () {
               attrs: { type: "text", name: "description" },
               domProps: { value: _vm.product.description },
               on: {
+                blur: function () {
+                  if (_vm.product.description === "") {
+                    _vm.$swal({
+                      toast: false,
+                      position: "top-end",
+                      showConfirmButton: false,
+                      timer: 3000,
+                      icon: "error",
+                      text: "Description is required",
+                    })
+                  }
+                },
                 input: function ($event) {
                   if ($event.target.composing) {
                     return
@@ -23121,14 +23267,28 @@ var render = function () {
               attrs: { type: "text", name: "price" },
               domProps: { value: _vm.product.price },
               on: {
+                blur: [
+                  function () {
+                    if (_vm.product.price === "") {
+                      _vm.$swal({
+                        toast: false,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: "error",
+                        text: "Price is required",
+                      })
+                    }
+                  },
+                  function ($event) {
+                    return _vm.$forceUpdate()
+                  },
+                ],
                 input: function ($event) {
                   if ($event.target.composing) {
                     return
                   }
                   _vm.$set(_vm.product, "price", _vm._n($event.target.value))
-                },
-                blur: function ($event) {
-                  return _vm.$forceUpdate()
                 },
               },
             }),
@@ -23811,7 +23971,10 @@ var render = function () {
       [
         _c(
           "div",
-          { staticClass: "text-sm font-medium leading-5 text-gray-900" },
+          {
+            staticClass:
+              "text-sm capitalize font-medium leading-5 text-gray-900",
+          },
           [
             _vm._v(
               "\n                " +
@@ -23866,12 +24029,12 @@ var render = function () {
         _c(
           "div",
           {
-            staticClass: "text-sm font-medium leading-5 ",
+            staticClass: "capitalize font-medium leading-5 ",
             class:
               _vm.quote.status === "pending"
                 ? "text-blue-400"
                 : _vm.quote.status === "accepted"
-                ? "text-green-400"
+                ? "text-green-500"
                 : "text-red-400",
           },
           [

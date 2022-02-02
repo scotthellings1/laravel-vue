@@ -15,7 +15,7 @@ class EmailQuotesTotals extends Command
      *
      * @var string
      */
-    protected $signature = 'email:quotes';
+    protected $signature = 'quotes:daily:totals';
 
     /**
      * The console command description.

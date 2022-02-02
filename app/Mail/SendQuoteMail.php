@@ -31,6 +31,7 @@ class SendQuoteMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.sendquote');
+        return $this->subject('Your Quote is ready')
+                    ->markdown('emails.sendquote');
     }
 }

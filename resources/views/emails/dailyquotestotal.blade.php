@@ -14,7 +14,7 @@ ___
 
 **Total:** £{{number_format($total,2)}}
 
-@component('mail::button', ['url' => env('APP_URL') . '/quotes'])
+@component('mail::button', ['url' => env('APP_URL') . '/quotes', 'color' => 'green'])
 See All Quotes
 @endcomponent
 

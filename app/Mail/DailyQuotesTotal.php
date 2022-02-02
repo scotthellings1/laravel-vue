@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -20,8 +21,10 @@ class DailyQuotesTotal extends Mailable
     public $total;
     public function __construct($quotes, $total)
     {
+
         $this->quotes = $quotes;
         $this->total = $total;
+
     }
 
     /**
@@ -31,6 +34,7 @@ class DailyQuotesTotal extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.dailyquotestotal');
+        return $this->subject('Quotes Summary: ' . Carbon::today()->format('d/m/Y'))
+                    ->markdown('emails.dailyquotestotal');
     }
 }

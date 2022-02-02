@@ -78,8 +78,8 @@ export default {
             axios.put('/api/quotes/' + this.$route.params.id , this.quote)
                 .then( response => this.$emit('onEditQuote'))
                 .catch((error) => {
-                    console.log(error.data)
-                } )
+                    this.errors = error.response.data.errors
+                })
         },
     },
 }

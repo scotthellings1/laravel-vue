@@ -68,7 +68,9 @@ export default {
             .then( (response) => {
                 this.$router.push({ name: 'quotes.show', params: { id: response.data.data.id } });
             })
-            .catch(error => console.log(error))
+            .catch((error) => {
+                this.errors = error.response.data.errors
+            })
         },
     },
 }
