@@ -25,7 +25,7 @@ class StoreQuoteRequest extends FormRequest
     {
         return [
             'customer_name' => ['required'],
-            'customer_email' => ['required'],
+            'customer_email' => ['required', 'email'],
             'total' => ['numeric']
         ];
     }
