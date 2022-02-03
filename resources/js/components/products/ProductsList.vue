@@ -5,8 +5,9 @@
                 <add-product @onAddProduct="handleAddProduct"></add-product>
             </div>
         </modal>
-        <button @click="CreateProductsModalShow = true"
-           class=" cursor-pointer mb-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600">Add Product</button>
+        <button class=" cursor-pointer mb-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600"
+                @click="CreateProductsModalShow = true">Add Product
+        </button>
         <table class="w-full">
             <thead>
             <tr>
@@ -34,8 +35,8 @@
                 </th>
             </tr>
             </thead>
-            <tbody class="bg-white" v-for="(product, index) in products" >
-            <Product :product="product" :key="index" @onProductDeleted="handleProductDeleted(index)"  />
+            <tbody v-for="(product, index) in products" class="bg-white">
+            <Product :key="index" :product="product" @onProductDeleted="handleProductDeleted(index)"/>
             </tbody>
         </table>
     </div>
@@ -46,6 +47,7 @@
 import Product from "./Product";
 import Modal from "../Modal";
 import AddProduct from "./AddProduct";
+
 export default {
     components: {Product, Modal, AddProduct},
     name: "ProductsList",
@@ -59,7 +61,7 @@ export default {
         this.getProducts()
     },
     methods: {
-        getProducts(){
+        getProducts() {
             axios.get('/api/products')
                 .then(response => {
                     this.products = response.data.data

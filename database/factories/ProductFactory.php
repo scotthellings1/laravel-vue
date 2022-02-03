@@ -16,7 +16,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->unique->product(),
             'description' => $this->faker->sentence(),
-            'price' => rand(500,999) /10,
+            'price' => rand(500, 999) / 10,
         ];
     }
 }

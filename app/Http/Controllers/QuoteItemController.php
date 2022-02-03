@@ -21,7 +21,7 @@ class QuoteItemController extends Controller
      */
     public function store(Request $request, Quote $quote)
     {
-       $quote->products()->sync($request->product_id, false);
+        $quote->products()->sync($request->product_id, false);
     }
 
 
@@ -46,7 +46,7 @@ class QuoteItemController extends Controller
     public function update(Request $request, Quote $quote, Product $product)
     {
 
-        $quote->products()->sync([$product->id => ['qty' => $request->qty]], false );
+        $quote->products()->sync([$product->id => ['qty' => $request->qty]], false);
     }
 
 
@@ -55,7 +55,7 @@ class QuoteItemController extends Controller
      * @param  Product  $product
      * @return void
      */
-    public function destroy(Quote $quote,Product $product)
+    public function destroy(Quote $quote, Product $product)
     {
         $quote->products()->detach($product);
     }

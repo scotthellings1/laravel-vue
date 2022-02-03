@@ -1,9 +1,10 @@
 <template>
     <div>
-        <v-select label="name" :options="products"  @input="getProduct"></v-select>
-        <button @click="AddProductToQuote"
-                class=" cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600">Add
-            Quote</button>
+        <v-select :options="products" label="name" @input="getProduct"></v-select>
+        <button class=" cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600"
+                @click="AddProductToQuote">Add
+            Product to Quote
+        </button>
     </div>
 </template>
 
@@ -30,14 +31,12 @@ export default {
     methods: {
         getProduct(product) {
             axios.get('/api/products/' + product.id)
-            .then((response) => {
-                this.product = response.data.data
-            })
+                .then((response) => {
+                    this.product = response.data.data
+                })
         },
         AddProductToQuote() {
             this.$emit('onProductAddedToQuote', this.product)
-
-
 
 
         }
@@ -45,13 +44,14 @@ export default {
 }
 </script>
 
-<style >
+<style>
 
 .vs__search {
     border: none;
 
 }
-.vs__search, [type='search']:focus{
+
+.vs__search, [type='search']:focus {
     --tw-ring-color: transparent;
     outline: none;
     border-color: transparent;

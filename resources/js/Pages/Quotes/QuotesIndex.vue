@@ -7,6 +7,7 @@
 
 <script>
 import QuotesList from "../../components/quotes/QuotesList";
+
 export default {
     name: "QuotesIndex",
     components: {QuotesList}

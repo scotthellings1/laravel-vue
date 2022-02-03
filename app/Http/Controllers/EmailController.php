@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendQuoteMail;
 use App\Models\Quote;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller

@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateQuoteRequest;
 use App\Http\Resources\QuoteCollection;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
-use Illuminate\Http\Request;
 
 /**
  *

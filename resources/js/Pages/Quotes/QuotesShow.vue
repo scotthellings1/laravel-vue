@@ -5,23 +5,23 @@
             <add-product @onProductAddedToQuote="handleAddProductToQuote"></add-product>
         </modal>
         <modal :showing="showEditQuoteModal" @close="showEditQuoteModal = false">
-            <edit-quote @onEditQuote="handleEditQuote" :quote="quote" :disabled="disabled"></edit-quote>
+            <edit-quote :disabled="disabled" :quote="quote" @onEditQuote="handleEditQuote"></edit-quote>
         </modal>
         <div class="flex justify-between mt-8">
             <div class="flex space-x-4">
-                <button @click="showEditQuoteModal = true"
-                        class="px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600"
+                <button class="px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600"
+                        @click="showEditQuoteModal = true"
                 >
                     Edit Quote Details
                 </button>
-                <button @click="$router.push('/quotes')"
-                        class="px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600"
+                <button class="px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600"
+                        @click="$router.push('/quotes')"
                 >
                     Back
                 </button>
             </div>
-            <button @click="sendQuoteEmail" :disabled="disabled"
-                    class="px-4 py-1 mt-8 h-10 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400"
+            <button :disabled="disabled" class="px-4 py-1 mt-8 h-10 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400"
+                    @click="sendQuoteEmail"
             >
                 Send Quote
             </button>
@@ -34,10 +34,12 @@
             </div>
             <div class="flex flex-col ml-2 space-y-2">
                 <div class="capitalize">{{ quote.customer_name }}</div>
-                <div >{{ quote.customer_email }}</div>
-                <div class="font-bold capitalize" :class="quote.status === 'pending' ?
-                'text-blue-400' : quote.status === 'accepted' ? 'text-green-500' : 'text-red-400'  ">{{ quote.status
-                    }}</div>
+                <div>{{ quote.customer_email }}</div>
+                <div :class="quote.status === 'pending' ?
+                'text-blue-400' : quote.status === 'accepted' ? 'text-green-500' : 'text-red-400'  " class="font-bold capitalize">{{
+                        quote.status
+                    }}
+                </div>
             </div>
         </div>
         <div class="mt-8">
@@ -57,8 +59,8 @@
                 </div>
 
             </div>
-            <div class="flex justify-between items-center px-3 py-4 mt-2 w-full bg-white" v-for="(product, index) in
-            quoteProducts">
+            <div v-for="(product, index) in
+            quoteProducts" class="flex justify-between items-center px-3 py-4 mt-2 w-full bg-white">
                 <div class="flex items-center space-x-4 w-full">
                     <div class="mr-4 w-1/5 capitalize">
                         {{ product.name }}
@@ -67,8 +69,12 @@
                         £{{ product.price.toFixed(2) }}
                     </div>
                     <div class="mr-4 w-1/5">
-                        <input type="number" min="1" v-model.number="product.qty"
-                               :disabled="disabled"
+                        <input v-model.number="product.qty" :disabled="disabled" class=" md:w-1/2 inline w-full  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+         focus:border-blue-600 focus:outline-none disabled:bg-gray-200"
+                               min="1"
+                               type="number"
+                               @blur="updateQuoteProductQty(product)"
                                @change="() => {
                                    if (product.qty < 1) {
                                        product.qty = 1;
@@ -81,23 +87,19 @@
                                           text: 'Product qty can not be less than 1!',
                                          })
                                        }
-                                   }"
-                               @blur="updateQuoteProductQty(product)"
-                               class=" md:w-1/2 inline w-full  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
-        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-         focus:border-blue-600 focus:outline-none disabled:bg-gray-200">
+                                   }">
                     </div>
                     <div class="mr-4 w-1/5">
                         £{{ productLineTotal(product.price, product.qty).toFixed(2) }}
                     </div>
                     <div class="mr-4 w-1/5">
-                        <svg @click="removeQuoteProduct(index, product)" xmlns="http://www.w3.org/2000/svg"
-                             class="w-6 h-6 text-red-400 cursor-pointer"
+                        <svg v-show="quote.status === 'pending'" class="w-6 h-6 text-red-400 cursor-pointer"
                              fill="none"
-                             v-show="quote.status === 'pending'"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                             stroke="currentColor"
+                             viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg" @click="removeQuoteProduct(index, product)">
+                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2"/>
                         </svg>
                     </div>
                 </div>
@@ -107,9 +109,9 @@
         </div>
         <div class="flex justify-between w-full">
             <div class="h-12">
-                <button @click="showAddProductModal = true"
+                <button :disabled="disabled"
                         class="px-4 py-1 my-4 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600 disabled:bg-gray-400"
-                        :disabled="disabled">
+                        @click="showAddProductModal = true">
                     Add Product To Quote
                 </button>
             </div>

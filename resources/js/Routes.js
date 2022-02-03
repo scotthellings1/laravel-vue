@@ -4,7 +4,7 @@ import QuotesIndex from "./Pages/Quotes/QuotesIndex";
 import QuotesShow from "./Pages/Quotes/QuotesShow";
 
 export default {
-    mode:'history',
+    mode: 'history',
     linkActiveClass: "nav-link-active",
     routes: [
         {

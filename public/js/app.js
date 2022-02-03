@@ -2103,6 +2103,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddProduct",
@@ -2183,6 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_quotes_EditQuote__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/quotes/EditQuote */ "./resources/js/components/quotes/EditQuote.vue");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+//
+//
 //
 //
 //
@@ -2800,6 +2803,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['product'],
@@ -2889,6 +2893,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Product__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Product */ "./resources/js/components/products/Product.vue");
 /* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modal */ "./resources/js/components/Modal.vue");
 /* harmony import */ var _AddProduct__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddProduct */ "./resources/js/components/products/AddProduct.vue");
+//
 //
 //
 //
@@ -3044,7 +3049,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddQuote",
   data: function data() {
@@ -3085,7 +3089,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -3299,6 +3302,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3458,7 +3462,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.vs__search {\n    border: none;\n}\n.vs__search, [type='search']:focus{\n    --tw-ring-color: transparent;\n    outline: none;\n    border-color: transparent;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.vs__search {\n    border: none;\n}\n.vs__search, [type='search']:focus {\n    --tw-ring-color: transparent;\n    outline: none;\n    border-color: transparent;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22347,6 +22351,71 @@ var staticRenderFns = [
       _c("h1", { staticClass: "text-2xl text-center" }, [
         _vm._v("Quote Builder"),
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "bg-white mx-auto mt-11 p-11 max-w-4xl flex flex-col justify-center space-y-5 rounded shadow-2xl",
+        },
+        [
+          _c("p", { staticClass: "text-lg" }, [
+            _vm._v(
+              "This is a basic quote builder built with Laravel and Vue JS"
+            ),
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-lg" }, [
+            _vm._v(
+              "Laravel is being used as an API to store and retrieve the data"
+            ),
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-lg" }, [
+            _vm._v(
+              "Vue JS is being used to create a single page application (SPA), a site that has\n            multiple pages but no actual refresh of the browser window"
+            ),
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-lg" }, [
+            _vm._v("The main functions of the app are:"),
+          ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "list-disc ml-4 " }, [
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v("ability to create products"),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v("ability to create and edit a quote"),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v("ability to assign and remove products on a quote"),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v("ability to increase and decrease line item quantity"),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v(
+                "sub-total, vat total and total to automatically update on the quote when\n                adding/removing/editing\n                line items"
+              ),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v("ability to send a quote to the customer"),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "first-letter:uppercase" }, [
+              _vm._v(
+                "cron that runs at the end of the day to give an overview of the quotes created that day with\n                totals via email"
+              ),
+            ]),
+          ]),
+        ]
+      ),
     ])
   },
 ]
@@ -22410,7 +22479,7 @@ var render = function () {
     "div",
     [
       _c("v-select", {
-        attrs: { label: "name", options: _vm.products },
+        attrs: { options: _vm.products, label: "name" },
         on: { input: _vm.getProduct },
       }),
       _vm._v(" "),
@@ -22421,7 +22490,7 @@ var render = function () {
             " cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600",
           on: { click: _vm.AddProductToQuote },
         },
-        [_vm._v("Add\n        Quote")]
+        [_vm._v("Add\n        Product to Quote\n    ")]
       ),
     ],
     1
@@ -22518,7 +22587,7 @@ var render = function () {
         },
         [
           _c("edit-quote", {
-            attrs: { quote: _vm.quote, disabled: _vm.disabled },
+            attrs: { disabled: _vm.disabled, quote: _vm.quote },
             on: { onEditQuote: _vm.handleEditQuote },
           }),
         ],
@@ -22589,7 +22658,7 @@ var render = function () {
                   ? "text-green-500"
                   : "text-red-400",
             },
-            [_vm._v(_vm._s(_vm.quote.status))]
+            [_vm._v(_vm._s(_vm.quote.status) + "\n            ")]
           ),
         ]),
       ]),
@@ -22673,12 +22742,20 @@ var render = function () {
                         staticClass:
                           " md:w-1/2 inline w-full  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding\n    border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white\n     focus:border-blue-600 focus:outline-none disabled:bg-gray-200",
                         attrs: {
-                          type: "number",
-                          min: "1",
                           disabled: _vm.disabled,
+                          min: "1",
+                          type: "number",
                         },
                         domProps: { value: product.qty },
                         on: {
+                          blur: [
+                            function ($event) {
+                              return _vm.updateQuoteProductQty(product)
+                            },
+                            function ($event) {
+                              return _vm.$forceUpdate()
+                            },
+                          ],
                           change: function () {
                             if (product.qty < 1) {
                               product.qty = 1
@@ -22692,14 +22769,6 @@ var render = function () {
                               })
                             }
                           },
-                          blur: [
-                            function ($event) {
-                              return _vm.updateQuoteProductQty(product)
-                            },
-                            function ($event) {
-                              return _vm.$forceUpdate()
-                            },
-                          ],
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
@@ -22740,10 +22809,10 @@ var render = function () {
                           ],
                           staticClass: "w-6 h-6 text-red-400 cursor-pointer",
                           attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
                             fill: "none",
-                            viewBox: "0 0 24 24",
                             stroke: "currentColor",
+                            viewBox: "0 0 24 24",
+                            xmlns: "http://www.w3.org/2000/svg",
                           },
                           on: {
                             click: function ($event) {
@@ -22754,10 +22823,10 @@ var render = function () {
                         [
                           _c("path", {
                             attrs: {
+                              d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
                               "stroke-linecap": "round",
                               "stroke-linejoin": "round",
                               "stroke-width": "2",
-                              d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
                             },
                           }),
                         ]
@@ -22878,7 +22947,7 @@ var render = function () {
               "div",
               {
                 staticClass:
-                  "relative w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 opacity-1 ",
+                  "relative w-full  max-w-4xl bg-white shadow-lg rounded-lg p-8 opacity-1 ",
               },
               [
                 _c(
@@ -22894,7 +22963,7 @@ var render = function () {
                       },
                     },
                   },
-                  [_vm._v("\n                ×\n            ")]
+                  [_vm._v("\n                x\n            ")]
                 ),
                 _vm._v(" "),
                 _vm._t("default"),
@@ -22962,11 +23031,11 @@ var render = function () {
           staticClass:
             "form-control\n    block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n    bg-white bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           attrs: {
-            type: "text",
-            name: "name",
             id: "name",
             "aria-describedby": "emailHelp",
+            name: "name",
             placeholder: "Product Name",
+            type: "text",
           },
           domProps: { value: _vm.name },
           on: {
@@ -23008,10 +23077,10 @@ var render = function () {
           staticClass:
             "form-control block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n    bg-white bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           attrs: {
-            type: "text",
-            name: "description",
             id: "description",
+            name: "description",
             placeholder: "Description",
+            type: "text",
           },
           domProps: { value: _vm.description },
           on: {
@@ -23053,10 +23122,10 @@ var render = function () {
           staticClass:
             "form-control block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n    bg-white bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           attrs: {
-            type: "text",
-            name: "price",
             id: "price",
+            name: "price",
             placeholder: "103.99",
+            type: "text",
           },
           domProps: { value: _vm.price },
           on: {
@@ -23201,10 +23270,10 @@ var render = function () {
               {
                 staticClass: " cursor-pointer w-6 h-6 text-blue-400",
                 attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
-                  viewBox: "0 0 24 24",
                   stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg",
                 },
                 on: {
                   click: function ($event) {
@@ -23215,10 +23284,10 @@ var render = function () {
               [
                 _c("path", {
                   attrs: {
+                    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
                     "stroke-linecap": "round",
                     "stroke-linejoin": "round",
                     "stroke-width": "2",
-                    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
                   },
                 }),
               ]
@@ -23277,10 +23346,10 @@ var render = function () {
                 ],
                 staticClass: "w-6 h-6 text-red-400",
                 attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
-                  viewBox: "0 0 24 24",
                   stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg",
                 },
                 on: {
                   click: function ($event) {
@@ -23291,10 +23360,10 @@ var render = function () {
               [
                 _c("path", {
                   attrs: {
+                    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
                     "stroke-linecap": "round",
                     "stroke-linejoin": "round",
                     "stroke-width": "2",
-                    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
                   },
                 }),
               ]
@@ -23376,7 +23445,7 @@ var render = function () {
                     ],
                     staticClass:
                       "bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                    attrs: { type: "text", name: "name", autofocus: "" },
+                    attrs: { autofocus: "", name: "name", type: "text" },
                     domProps: { value: _vm.product.name },
                     on: {
                       blur: function () {
@@ -23424,7 +23493,7 @@ var render = function () {
                 ],
                 staticClass:
                   "bg-gray-100 p-2 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                attrs: { type: "text", name: "description" },
+                attrs: { name: "description", type: "text" },
                 domProps: { value: _vm.product.description },
                 on: {
                   blur: function () {
@@ -23472,10 +23541,10 @@ var render = function () {
                 staticClass:
                   "bg-gray-100 p-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
                 attrs: {
-                  type: "number",
-                  name: "price",
                   min: "0.01",
+                  name: "price",
                   step: "0.01",
+                  type: "number",
                 },
                 domProps: { value: _vm.product.price },
                 on: {
@@ -23529,10 +23598,10 @@ var render = function () {
                 ],
                 staticClass: " cursor-pointer w-6 h-6 text-blue-400",
                 attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
-                  viewBox: "0 0 24 24",
                   stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg",
                 },
                 on: {
                   click: function ($event) {
@@ -23543,10 +23612,10 @@ var render = function () {
               [
                 _c("path", {
                   attrs: {
+                    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
                     "stroke-linecap": "round",
                     "stroke-linejoin": "round",
                     "stroke-width": "2",
-                    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
                   },
                 }),
               ]
@@ -23579,7 +23648,7 @@ var render = function () {
                     attrs: { disabled: _vm.disabled },
                     on: { click: _vm.updateProduct },
                   },
-                  [_vm._v("SAVE\n            ")]
+                  [_vm._v("\n                    SAVE\n                ")]
                 ),
               ]
             ),
@@ -23606,10 +23675,10 @@ var render = function () {
                 ],
                 staticClass: "w-6 h-6 text-red-400",
                 attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
-                  viewBox: "0 0 24 24",
                   stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg",
                 },
                 on: {
                   click: function ($event) {
@@ -23620,10 +23689,10 @@ var render = function () {
               [
                 _c("path", {
                   attrs: {
+                    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
                     "stroke-linecap": "round",
                     "stroke-linejoin": "round",
                     "stroke-width": "2",
-                    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
                   },
                 }),
               ]
@@ -23726,7 +23795,7 @@ var render = function () {
             },
           },
         },
-        [_vm._v("Add Product")]
+        [_vm._v("Add Product\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -23871,11 +23940,11 @@ var render = function () {
           staticClass:
             "form-control\n    block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n    bg-white bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           attrs: {
-            type: "text",
-            name: "customer_name",
             id: "customer_name",
             "aria-describedby": "emailHelp",
+            name: "customer_name",
             placeholder: "John Smith",
+            type: "text",
           },
           domProps: { value: _vm.customer_name },
           on: {
@@ -23917,10 +23986,10 @@ var render = function () {
           staticClass:
             "form-control block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n    bg-white bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           attrs: {
-            type: "text",
-            name: "customer_email",
             id: "customer_email",
+            name: "customer_email",
             placeholder: "example@mail.com",
+            type: "text",
           },
           domProps: { value: _vm.customer_email },
           on: {
@@ -24010,12 +24079,12 @@ var render = function () {
             "form-control\n    block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n     bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           class: _vm.disabled ? "bg-gray-100" : "bg-white",
           attrs: {
-            type: "text",
-            name: "customer_name",
             id: "customer_name",
-            "aria-describedby": "emailHelp",
-            placeholder: "John Smith",
             disabled: _vm.disabled,
+            "aria-describedby": "emailHelp",
+            name: "customer_name",
+            placeholder: "John Smith",
+            type: "text",
           },
           domProps: { value: _vm.quote.customer_name },
           on: {
@@ -24058,11 +24127,11 @@ var render = function () {
             "form-control block\n    w-full\n    px-3\n    py-1.5\n    text-base\n    font-normal\n    text-gray-700\n    bg-clip-padding\n    border border-solid border-gray-300\n    rounded\n    transition\n    ease-in-out\n    m-0\n    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
           class: _vm.disabled ? "bg-gray-100" : "bg-white",
           attrs: {
-            type: "text",
-            name: "customer_email",
             id: "customer_email",
-            placeholder: "example@mail.com",
             disabled: _vm.disabled,
+            name: "customer_email",
+            placeholder: "example@mail.com",
+            type: "text",
           },
           domProps: { value: _vm.quote.customer_email },
           on: {
@@ -24171,11 +24240,7 @@ var render = function () {
             staticClass:
               "text-sm text-red-400 font-medium leading-5 text-gray-900",
           },
-          [
-            _vm._v(
-              "\n                " + _vm._s(_vm.quote.id) + "\n            "
-            ),
-          ]
+          [_vm._v("\n            " + _vm._s(_vm.quote.id) + "\n        ")]
         ),
       ]
     ),
@@ -24192,9 +24257,7 @@ var render = function () {
           },
           [
             _vm._v(
-              "\n                " +
-                _vm._s(_vm.quote.customer_name) +
-                "\n            "
+              "\n            " + _vm._s(_vm.quote.customer_name) + "\n        "
             ),
           ]
         ),
@@ -24210,9 +24273,7 @@ var render = function () {
           { staticClass: "text-sm font-medium leading-5 text-gray-900" },
           [
             _vm._v(
-              "\n                " +
-                _vm._s(_vm.quote.customer_email) +
-                "\n            "
+              "\n            " + _vm._s(_vm.quote.customer_email) + "\n        "
             ),
           ]
         ),
@@ -24228,9 +24289,9 @@ var render = function () {
           { staticClass: "text-sm font-medium leading-5 text-gray-900" },
           [
             _vm._v(
-              "\n                £" +
+              "\n            £" +
                 _vm._s(_vm.quote.total.toFixed(2)) +
-                "\n            "
+                "\n        "
             ),
           ]
         ),
@@ -24252,11 +24313,7 @@ var render = function () {
                 ? "text-green-500"
                 : "text-red-400",
           },
-          [
-            _vm._v(
-              "\n                " + _vm._s(_vm.quote.status) + "\n            "
-            ),
-          ]
+          [_vm._v("\n            " + _vm._s(_vm.quote.status) + "\n        ")]
         ),
       ]
     ),
@@ -24278,28 +24335,28 @@ var render = function () {
               {
                 staticClass: "w-6 h-6 text-green-400",
                 attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
-                  viewBox: "0 0 24 24",
                   stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg",
                 },
               },
               [
                 _c("path", {
                   attrs: {
+                    d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z",
                     "stroke-linecap": "round",
                     "stroke-linejoin": "round",
                     "stroke-width": "2",
-                    d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z",
                   },
                 }),
                 _vm._v(" "),
                 _c("path", {
                   attrs: {
+                    d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
                     "stroke-linecap": "round",
                     "stroke-linejoin": "round",
                     "stroke-width": "2",
-                    d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
                   },
                 }),
               ]
@@ -24368,7 +24425,7 @@ var render = function () {
             },
           },
         },
-        [_vm._v("Add\n        Quote")]
+        [_vm._v("Add\n        Quote\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -24405,7 +24462,7 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50",
           },
-          [_vm._v("\n            Quote number\n        ")]
+          [_vm._v("\n                Quote number\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -24414,7 +24471,7 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50",
           },
-          [_vm._v("\n            Customer Name\n        ")]
+          [_vm._v("\n                Customer Name\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -24423,7 +24480,7 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50",
           },
-          [_vm._v("\n            Customer Email\n        ")]
+          [_vm._v("\n                Customer Email\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -24432,7 +24489,7 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50",
           },
-          [_vm._v("\n            invoice total\n        ")]
+          [_vm._v("\n                invoice total\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -24441,7 +24498,7 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50",
           },
-          [_vm._v("\n            status\n        ")]
+          [_vm._v("\n                status\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -24450,7 +24507,7 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50",
           },
-          [_vm._v("\n            view\n        ")]
+          [_vm._v("\n                view\n            ")]
         ),
       ]),
     ])

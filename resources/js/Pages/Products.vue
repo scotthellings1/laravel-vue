@@ -8,6 +8,6 @@
 import ProductsList from "../components/products/ProductsList";
 
 export default {
-    components: { ProductsList},
+    components: {ProductsList},
 }
 </script>
