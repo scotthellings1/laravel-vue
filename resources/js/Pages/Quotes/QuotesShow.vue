@@ -2,7 +2,7 @@
     <div class="">
 
         <modal :showing="showAddProductModal" @close="showAddProductModal = false">
-            <add-product @onProductAddedToQuote="handleAddProductToQuote"></add-product>
+            <add-product @onProductAddedToQuote="handleAddProductToQuote" @onCancelAddProductToQuote="handleCancelAddProductToQuote"></add-product>
         </modal>
         <modal :showing="showEditQuoteModal" @close="showEditQuoteModal = false">
             <edit-quote :disabled="disabled" :quote="quote" @onEditQuote="handleEditQuote"></edit-quote>
@@ -15,12 +15,13 @@
                     Edit Quote Details
                 </button>
                 <button class="px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600"
-                        @click="$router.push('/quotes')"
+                        @click="backToQuotes"
                 >
                     Back
                 </button>
             </div>
-            <button :disabled="disabled" class="px-4 py-1 mt-8 h-10 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400"
+            <button v-show="quoteProducts.length > 0" :disabled="disabled"
+                     class="px-4 py-1 mt-8 h-10 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400"
                     @click="sendQuoteEmail"
             >
                 Send Quote
@@ -232,6 +233,9 @@ export default {
                     .then(this.getQuoteProducts)
             }
         },
+        handleCancelAddProductToQuote(){
+            this.showAddProductModal = false
+        },
         productLineTotal(price, qty) {
             return price * qty
         },
@@ -262,16 +266,49 @@ export default {
                         timer: 3000,
                         icon: 'success',
                         text: 'Quote Sent!',
-                    })
-                )
+                    }),
             axios.put('/api/quotes/' + this.$route.params.id, {
                 'customer_email': this.quote.customer_email,
                 'customer_name': this.quote.customer_name,
                 'status': 'sent'
             })
                 .then(
-                    this.getQuoteDetails
+                    this.getQuoteDetails,
+
+                ).then(
+                this.$emit('quoteSent'),
+                this.$router.push('/quotes')
+            )
                 )
+
+        },
+        backToQuotes() {
+            if (this.quoteProducts.length < 1) {
+                this.$swal({
+                    title: 'Quote has no Products',
+                    showCancelButton: true,
+                    showDenyButton: true,
+                    confirmButtonText: 'Continue',
+                    denyButtonText: 'Delete quote?',
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.$router.push('/quotes')
+                    } else if (result.isDenied) {
+                        axios.delete('/api/quotes/' + this.$route.params.id)
+                        .then((response) => {
+                            this.$swal({
+                                toast: false,
+                                showConfirmButton: false,
+                                timer: 3000,
+                                icon: 'success',
+                                text: response.data.message,
+                            })
+                            this.$router.push('/quotes')
+                        })
+                    }
+                })
+            }
         }
     },
 

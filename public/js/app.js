@@ -2104,6 +2104,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddProduct",
@@ -2133,6 +2138,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     AddProductToQuote: function AddProductToQuote() {
       this.$emit('onProductAddedToQuote', this.product);
+    },
+    CancelAddProductToQuote: function CancelAddProductToQuote() {
+      this.$emit('onCancelAddProductToQuote');
     }
   }
 });
@@ -2184,6 +2192,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_quotes_EditQuote__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/quotes/EditQuote */ "./resources/js/components/quotes/EditQuote.vue");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+//
 //
 //
 //
@@ -2422,6 +2431,9 @@ __webpack_require__.r(__webpack_exports__);
         }).then(this.getQuoteProducts);
       }
     },
+    handleCancelAddProductToQuote: function handleCancelAddProductToQuote() {
+      this.showAddProductModal = false;
+    },
     productLineTotal: function productLineTotal(price, qty) {
       return price * qty;
     },
@@ -2450,12 +2462,40 @@ __webpack_require__.r(__webpack_exports__);
         timer: 3000,
         icon: 'success',
         text: 'Quote Sent!'
-      }));
-      axios.put('/api/quotes/' + this.$route.params.id, {
+      }), axios.put('/api/quotes/' + this.$route.params.id, {
         'customer_email': this.quote.customer_email,
         'customer_name': this.quote.customer_name,
         'status': 'sent'
-      }).then(this.getQuoteDetails);
+      }).then(this.getQuoteDetails).then(this.$emit('quoteSent'), this.$router.push('/quotes')));
+    },
+    backToQuotes: function backToQuotes() {
+      var _this3 = this;
+
+      if (this.quoteProducts.length < 1) {
+        this.$swal({
+          title: 'Quote has no Products',
+          showCancelButton: true,
+          showDenyButton: true,
+          confirmButtonText: 'Continue',
+          denyButtonText: 'Delete quote?'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            _this3.$router.push('/quotes');
+          } else if (result.isDenied) {
+            axios["delete"]('/api/quotes/' + _this3.$route.params.id).then(function (response) {
+              _this3.$swal({
+                toast: false,
+                showConfirmButton: false,
+                timer: 3000,
+                icon: 'success',
+                text: response.data.message
+              });
+
+              _this3.$router.push('/quotes');
+            });
+          }
+        });
+      }
     }
   }
 });
@@ -22487,10 +22527,21 @@ var render = function () {
         "button",
         {
           staticClass:
-            " cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600",
+            " cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600 disabled:bg-gray-400",
+          attrs: { disabled: Object.keys(_vm.product).length === 0 },
           on: { click: _vm.AddProductToQuote },
         },
         [_vm._v("Add\n        Product to Quote\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            " cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600 disabled:bg-gray-400",
+          on: { click: _vm.CancelAddProductToQuote },
+        },
+        [_vm._v("\n        Cancel\n    ")]
       ),
     ],
     1
@@ -22569,7 +22620,10 @@ var render = function () {
         },
         [
           _c("add-product", {
-            on: { onProductAddedToQuote: _vm.handleAddProductToQuote },
+            on: {
+              onProductAddedToQuote: _vm.handleAddProductToQuote,
+              onCancelAddProductToQuote: _vm.handleCancelAddProductToQuote,
+            },
           }),
         ],
         1
@@ -22615,11 +22669,7 @@ var render = function () {
             {
               staticClass:
                 "px-4 py-1 mt-8 h-10 text-white bg-green-700 rounded-md cursor-pointer hover:bg-green-600",
-              on: {
-                click: function ($event) {
-                  return _vm.$router.push("/quotes")
-                },
-              },
+              on: { click: _vm.backToQuotes },
             },
             [_vm._v("\n                Back\n            ")]
           ),
@@ -22628,6 +22678,14 @@ var render = function () {
         _c(
           "button",
           {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.quoteProducts.length > 0,
+                expression: "quoteProducts.length > 0",
+              },
+            ],
             staticClass:
               "px-4 py-1 mt-8 h-10 text-white bg-blue-700 rounded-md cursor-pointer hover:bg-blue-600 disabled:bg-gray-400",
             attrs: { disabled: _vm.disabled },

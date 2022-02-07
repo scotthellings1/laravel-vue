@@ -1,9 +1,14 @@
 <template>
     <div>
         <v-select :options="products" label="name" @input="getProduct"></v-select>
-        <button class=" cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600"
+        <button :disabled="Object.keys(product).length === 0 "
+            class=" cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600 disabled:bg-gray-400"
                 @click="AddProductToQuote">Add
             Product to Quote
+        </button>
+        <button class=" cursor-pointer mt-6 rounded-md px-2 py-2 text-white bg-green-700 hover:bg-green-600 disabled:bg-gray-400"
+                @click="CancelAddProductToQuote">
+            Cancel
         </button>
     </div>
 </template>
@@ -37,8 +42,9 @@ export default {
         },
         AddProductToQuote() {
             this.$emit('onProductAddedToQuote', this.product)
-
-
+        },
+        CancelAddProductToQuote() {
+            this.$emit('onCancelAddProductToQuote')
         }
     },
 }

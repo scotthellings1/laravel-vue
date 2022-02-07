@@ -75,7 +75,7 @@ export default {
                 .then(response => {
                     this.quotes = response.data.data
                 })
-        }
+        },
     },
 
 }

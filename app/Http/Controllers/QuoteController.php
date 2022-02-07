@@ -64,8 +64,9 @@ class QuoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quote $quote)
     {
-        //
+        $quote->delete();
+        return response()->json(['message' => 'Quote Deleted!']);
     }
 }
